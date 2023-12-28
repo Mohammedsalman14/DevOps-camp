@@ -2,7 +2,7 @@ pipeline{
     agent any
     environment{
         NEW_VERSION ='1.3.0'
-        SERVER_CREDENTIALS = credentials("git-repo") //id-name
+        // SERVER_CREDENTIALS = credentials("git-repo") //id-name
     }
     stages{
         stage("build"){
@@ -18,7 +18,11 @@ pipeline{
         stage("deploy"){
             steps{
                 echo 'deploying the application'
-                echo " the credentials ${SERVER_CREDENTIALS} "
+                with([
+                    usernamePassword(credentials:'git-repo',usernameVariable:USER,passwordVariable:PWD)
+                ]){
+                    sh "some Script ${USER} and ${PWD}"
+                }
             }
         }
     }

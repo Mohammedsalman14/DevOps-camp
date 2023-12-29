@@ -8,7 +8,7 @@ pipeline {
             steps {
                 script {
                     echo 'building the application...'
-                    // sh 'mvn package'
+                // sh 'mvn package'
                 }
             }
         }
@@ -16,15 +16,15 @@ pipeline {
             steps  {
                 script {
                     echo 'building the Docker image...'
-                    withCredentials([usernamePassword(CredentialsId:'dockerhub-repo', usernameVariable:'USER', passwordVariable:'PWD')]) {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-repo', usernameVariable: 'USER', passwordVariable: 'PWD')]) {
                         sh 'docker build -t salman14/mydevfirst:1.1 .'
                         sh 'echo $PWD | docker login -u $USER --password-stdin'
-                        sh 'docker push salman14/mydevfirst:1.1 '
+                        sh 'docker push salman14/mydevfirst:1.1'
                     }
                 }
             }
         }
-        stage('deploy'){
+        stage('deploy') {
             steps {
                 script {
                     echo 'deploying the application'

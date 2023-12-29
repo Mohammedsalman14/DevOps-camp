@@ -17,7 +17,7 @@ pipeline {
                 script {
                     echo 'building the Docker image...'
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-repo', usernameVariable: 'USER', passwordVariable: 'PWD')]) {
-                        sh 'docker build -t salman14/mydevfirst:1.1 .'
+                        sh 'docker build -t salman14/mydevfirst:1.1 /home/mohammedsalman/Documents/DevOps-camp/docker .'
                         sh 'echo $PWD | docker login -u $USER --password-stdin'
                         sh 'docker push salman14/mydevfirst:1.1'
                     }

@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+    tools {
+        maven 'Maven'
+    }
+    stages {
+        stage('build-jar') {
+            steps {
+                script {
+                    echo 'building the application...'
+                    sh 'mvn package'
+                }
+            }
+        }
+        stage('build-docker-image') {
+            steps {
+                script {
+                    echo 'building the Docker image...'
+                    withCredentials([usernamePassword(CredentialsId:"github-login",username:"USER",password:"PWD")]){
+
+                        sh 'docker build -t salman14/mydevfirst:1.1 .'
+                        sh 'echo $PWD | docker login -u $USER --password-stdin'
+                        sh 'docker push salman14/mydevfirst:1.1 '
+                    }
+                }
+            }
+        }
+        stage('deploy')[
+            steps {
+                script {
+                    echo 'deploying the application'
+                }
+            }
+        ]
+    }
+}

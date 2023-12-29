@@ -13,7 +13,7 @@ pipeline {
             }
         }
         stage('build-docker-image') {
-            steps {
+            steps  {
                 script {
                     echo 'building the Docker image...'
                     withCredentials([usernamePassword(CredentialsId:'dockerhub-repo', username:'USER', password:'PWD')]) {

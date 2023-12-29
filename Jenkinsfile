@@ -16,11 +16,11 @@ pipeline {
 
             steps {
                 echo 'deploying the application'
-                // withCredentials([
-                //     usernamePassword(credentials: 'github-login', usernameVariable:USER, passwordVariable: PWD)
-                // ]){
-                //     echo "some Script ${USER} ${PWD}"
-                // }
+                withCredentials([
+                    usernamePassword(credentials: 'github-login', usernameVariable:USER, passwordVariable: PWD)
+                ]){
+                    echo "some Script ${USER} ${PWD}"
+                }
             }
         }
     }

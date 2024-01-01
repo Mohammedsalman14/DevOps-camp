@@ -3,6 +3,7 @@ def build() {
 }
 def test() {
     echo 'testing the application'
+    echo "Branch name $BRANCH_NAME"
 }
 def deploy() {
     echo 'deploying the application'

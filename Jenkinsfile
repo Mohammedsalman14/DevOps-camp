@@ -15,6 +15,11 @@ pipeline {
             }
         }
         stage('build') {
+            when{
+                expression{
+                    BRANCH_NAME=='jenkins'
+                }
+            }
             steps {
                 script {
                     gv.build()
